@@ -1,8 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { QuillModule } from 'ngx-quill';
-import { QuillEditorComponent } from 'ngx-quill';
 
 
 interface BlogPost {
@@ -21,7 +19,6 @@ interface BlogPost {
   imports: [
     CommonModule,
     FormsModule,
-    QuillModule,
     DatePipe
   ],
   templateUrl: './landing-page.component.html',
@@ -29,7 +26,7 @@ interface BlogPost {
 })
 
 export class LandingPageComponent implements OnInit {
-  posts = signal<BlogPost[]>([
+  posts :BlogPost[] = [
     {
       id: 1,
       title: 'First Blog Post',
@@ -38,7 +35,7 @@ export class LandingPageComponent implements OnInit {
       tags: ['Angular', 'Web Development'],
       createdAt: new Date()
     },
-  ]);
+  ];
 
   searchTerm = '';
   showCreateModal = false;
@@ -54,5 +51,8 @@ export class LandingPageComponent implements OnInit {
     
   }
 
+  filteredPosts(){
+
+  }
 
 }

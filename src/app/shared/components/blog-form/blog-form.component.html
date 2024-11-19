@@ -1,1 +1,91 @@
-<p>blog-form works!</p>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0 text-center">Create a Blog </h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+              <!-- Title Field -->
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="title" 
+                  formControlName="title"
+                  [ngClass]="{'is-invalid': submitted && blogForm.get('title')?.errors}"
+                >
+                <div *ngIf="submitted && blogForm.get('title')?.errors" class="invalid-feedback">
+                  <div *ngIf="blogForm.get('title')?.errors?.['required']">Title is required</div>
+                </div>
+              </div>
+
+              <!-- Category Field -->
+              <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select 
+                  class="form-select" 
+                  id="category" 
+                  formControlName="category"
+                  [ngClass]="{'is-invalid': submitted && blogForm.get('category')?.errors}"
+                >
+                  <option value="">Select Category</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Lifestyle">Lifestyle</option>
+                  <option value="Travel">Travel</option>
+                  <option value="Food">Food</option>
+                  <option value="Personal">Personal</option>
+                </select>
+                <div *ngIf="submitted && blogForm.get('category')?.errors" class="invalid-feedback">
+                  <div *ngIf="blogForm.get('category')?.errors?.['required']">Category is required</div>
+                </div>
+              </div>
+
+              <!-- Tags Field -->
+              <div class="mb-3">
+                <label for="tags" class="form-label">Tags (comma-separated)</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="tags" 
+                  formControlName="tags"
+                  placeholder="e.g. Angular, Web Development, Coding"
+                >
+              </div>
+
+              <!-- Content Field with Quill Editor -->
+              <div class="mb-3">
+                <label for="content" class="form-label">Content</label>
+                <quill-editor 
+                  formControlName="content"
+                  class="custom-editor"
+                  [ngClass]="{'is-invalid': submitted && blogForm.get('content')?.errors}"
+                ></quill-editor>
+                <div *ngIf="submitted && blogForm.get('content')?.errors" class="invalid-feedback">
+                  <div *ngIf="blogForm.get('content')?.errors?.['required']">Content is required</div>
+                </div>
+              </div>
+              
+
+              <!-- Submit Button -->
+              <div class="row justify-content-center gap-3 gap-md-0">
+                <div class="col-12 col-md-auto d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary btn-lg w-100 w-md-auto">
+                    Publish Post
+                  </button>
+                </div>
+                <div class="col-12 col-md-auto d-flex justify-content-center">
+                  <button type="button" class="btn btn-primary btn-lg w-100 w-md-auto">
+                    Save as Draft
+                  </button>
+                </div>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

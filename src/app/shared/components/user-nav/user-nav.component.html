@@ -6,7 +6,7 @@
 
 <!-- Sidebar -->
 <div *ngIf="openSideBar">
-    <aside class="position-fixed vh-100 bg-main text-white d-flex flex-column gap-2 z-40"
+    <aside class="position-fixed vh-100 bg-main text-white d-flex flex-column gap-2 z-50"
            [ngClass]="{
                'col-12': screenSize === 'xs',
                'col-10': screenSize === 'sm',
@@ -43,7 +43,7 @@
             
             <button class="btn btn-link w-100 text-start text-pe
              text-decoration-none btn-bg py-2 px-3 mb-2" 
-                routerLink="/feature/dashboard/volunteerRegistration" 
+                routerLink="/user/home/createBlog" 
                 routerLinkActive="rounded-end bg-white text-primary">
                 Create a blog
             </button>
