@@ -9,6 +9,11 @@ interface registerModel{
     password:string
   }
 
+  interface login{
+    email:string,
+    password:string
+  }
+  
 @Injectable({
     providedIn:'root'
 })
@@ -23,4 +28,8 @@ export class Authservice {
         return this.http.post(`${this.api}/auth/register`,data)
     }
 
+    // login 
+    loginpost(data:login):Observable<any>{
+      return this.http.post(`${this.api}/auth/login`,data)
+    }
 }

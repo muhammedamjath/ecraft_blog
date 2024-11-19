@@ -40,7 +40,7 @@ export class RegisterComponent {
     } else {
       this.authService.register(this.registerForm.value).subscribe((res) => {
         console.log(res);
-        // this.router.navigate(['/login']);
+        this.router.navigate(['/login']);
       });
     }
   }

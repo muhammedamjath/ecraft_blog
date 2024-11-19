@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6 col-lg-5 col-xl-4">
+      <div class="card shadow bg">
+        <div class="card-body p-5">
+          <div class="text-center mb-4">
+            <img src="/images/signup.png" alt="Company Logo" class="img-fluid" style="max-width: 150px;">
+          </div>
+
+          <h2 class="text-center mb-4">Welcome Back</h2>
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                [ngClass]="{
+                  'is-invalid': submitted && loginForm.get('email')?.errors
+                }"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="submitted && loginForm.get('email')?.errors"
+              >
+                <div *ngIf="loginForm.get('email')?.errors?.['required']">
+                  Email is required
+                </div>
+                <div *ngIf="loginForm.get('email')?.errors?.['email']">
+                  Please enter a valid email
+                </div>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="form-control"
+                  id="password"
+                  formControlName="password"
+                  [ngClass]="{
+                    'is-invalid': submitted && loginForm.get('password')?.errors
+                  }"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="togglePasswordVisibility()"
+                >
+                  <i
+                    class="bi"
+                    [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"
+                  ></i>
+                </button>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="submitted && loginForm.get('password')?.errors"
+                >
+                  <div *ngIf="loginForm.get('password')?.errors?.['required']">
+                    Password is required
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-lg">Login</button>
+            </div>
+
+            <!-- Register Link -->
+            <div class="text-center mt-3">
+              Don't have an account?
+              <a [routerLink]="['/']" class="text-primary">Register here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

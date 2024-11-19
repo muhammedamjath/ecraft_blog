@@ -1,0 +1,60 @@
+<!-- Toggle Button -->
+<button class="position-absolute top-4 start-4 d-lg-none text-white z-50 fs-4" (click)="open()">
+    <i *ngIf="openMenubar" class="fa-solid fa-bars"></i>
+    <i *ngIf="!openMenubar" class="fa-solid fa-xmark "></i>
+</button>
+
+<!-- Sidebar -->
+<div *ngIf="openSideBar">
+    <aside class="position-fixed vh-100 bg-main text-white d-flex flex-column gap-2 z-40"
+           [ngClass]="{
+               'col-12': screenSize === 'xs',
+               'col-10': screenSize === 'sm',
+               'col-6': screenSize === 'md',
+               'col-3': screenSize === 'lg'
+           }">
+        <!-- Profile Section -->
+        <div class="p-3 border-bottom  border-light d-flex flex-column align-items-center">
+            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fs-4 fw-bold mb-2" style="width: 4rem; height: 4rem;">
+                {{ name.charAt(0) }}
+            </div>
+            <h2 class="h6 fw-semibold">{{ name }}</h2>
+            <p class="small text-light">{{ email }}</p>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <nav class="flex-grow-1 p-3">
+            <button class="btn btn-link w-100 text-start text-primary text-decoration-none btn-bg btn-bg py-2 px-3 mb-2" 
+                routerLink="/feature/dashboard/home" 
+                routerLinkActive="rounded-end bg-white text-primary">
+                Home
+            </button>
+            
+            <button class="btn btn-link w-100 text-start text-primary text-decoration-none btn-bg py-2 px-3 mb-2" 
+                routerLink="/feature/dashboard/volunteersList" 
+                routerLinkActive="rounded-end bg-white text-primary">
+                Blogs
+            </button>
+            <button class="btn btn-link w-100 text-start text-primary text-decoration-none btn-bg py-2 px-3 mb-2" 
+                routerLink="/feature/dashboard/participantsList" 
+                routerLinkActive="rounded-end bg-white text-primary">
+                Drafts
+            </button>
+            
+            <button class="btn btn-link w-100 text-start text-pe
+             text-decoration-none btn-bg py-2 px-3 mb-2" 
+                routerLink="/feature/dashboard/volunteerRegistration" 
+                routerLinkActive="rounded-end bg-white text-primary">
+                Create a blog
+            </button>
+            
+        </nav>
+
+        <!-- Logout Button -->
+        <div class="p-3 border-top border-light">
+            <button class="btn w-100 py-2 text-primary fw-bold bg-warning hover-bg-primary" type="button">
+                Logout
+            </button>
+        </div>
+    </aside>
+</div>

@@ -1,0 +1,10 @@
+.style{
+    background-color: #d8eee7;
+    min-height: 100vh;
+    margin-left: 24%;
+}
+@media (max-width: 991px) {
+    .style {
+        margin-left: 0%; 
+    }
+}
