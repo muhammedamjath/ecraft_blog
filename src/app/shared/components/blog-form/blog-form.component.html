@@ -6,8 +6,8 @@
             <h4 class="mb-0 text-center">Create a Blog </h4>
           </div>
           <div class="card-body">
-            <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
-              <!-- Title Field -->
+            <form [formGroup]="blogForm" (ngSubmit)="submitPost()">
+              <!-- Title  -->
               <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input 
@@ -22,7 +22,7 @@
                 </div>
               </div>
 
-              <!-- Category Field -->
+              <!-- Category  -->
               <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
                 <select 
@@ -43,7 +43,7 @@
                 </div>
               </div>
 
-              <!-- Tags Field -->
+              <!-- Tags  -->
               <div class="mb-3">
                 <label for="tags" class="form-label">Tags (comma-separated)</label>
                 <input 
@@ -55,7 +55,7 @@
                 >
               </div>
 
-              <!-- Content Field with Quill Editor -->
+              <!-- Content  -->
               <div class="mb-3">
                 <label for="content" class="form-label">Content</label>
                 <quill-editor 
@@ -69,7 +69,7 @@
               </div>
               
 
-              <!-- Submit Button -->
+              <!-- Submit  -->
               <div class="row justify-content-center gap-3 gap-md-0">
                 <div class="col-12 col-md-auto d-flex justify-content-center">
                   <button type="submit" class="btn btn-primary btn-lg w-100 w-md-auto">
@@ -77,7 +77,7 @@
                   </button>
                 </div>
                 <div class="col-12 col-md-auto d-flex justify-content-center">
-                  <button type="button" class="btn btn-primary btn-lg w-100 w-md-auto">
+                  <button type="button" class="btn btn-primary btn-lg w-100 w-md-auto" (click)="saveDraft()">
                     Save as Draft
                   </button>
                 </div>
