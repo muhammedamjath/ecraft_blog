@@ -27,7 +27,7 @@ export class BlogFormComponent {
       category: ['', Validators.required],
       tags: [''],
       content: ['', Validators.required],
-      submitType: [''], // This field will store 'post' or 'draft'
+      submitType: [''], 
     });
   }
 

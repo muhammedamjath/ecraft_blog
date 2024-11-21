@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row ">
+        <div class="card " style="width: 100%;">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title m-0">{{ blog.title }}</h5>
+            
+            <!-- Draft Indicator -->
+            <span 
+              *ngIf="blog.type == 'draft'" 
+              class="badge bg-warning text-dark"
+              title="Draft"
+            >
+              Draft
+            </span>
+          </div>
+          
+          <div class="card-body">
+            <div class="mb-3">
+              <strong>Category:</strong> {{ blog.category }}
+            </div>
+            
+            <div class="mb-3">
+              <span 
+                *ngFor="let tag of blog.tags" 
+                class="badge bg-secondary me-1"
+              >
+                {{ tag }}
+              </span>
+            </div>
+            
+            <div class="mb-3">
+              <strong>Submit Date:</strong> 
+              {{ blog.createdAt | date }}
+            </div>
+            
+            <p class="card-text">{{ blog.content }}</p>
+            
+            <div class="d-flex justify-content-between mt-3">
+              <!-- Conditional Buttons -->
+              <div *ngIf="blog.type == 'draft'" class="btn-group">
+                <button 
+                  class="btn btn-success" 
+                  (click)="completeBlog(blog._id)"
+                >
+                  Complete Blog
+                </button>
+                <button 
+                  class="btn btn-primary" 
+                  (click)="postBlog(blog._id)"
+                >
+                  Post this Blog
+                </button>
+              </div>
+              
+              <button 
+                *ngIf="blog.type == 'post'" 
+                class="btn btn-warning" 
+                (click)="updateBlog(blog._id)"
+              >
+                Update 
+              </button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
