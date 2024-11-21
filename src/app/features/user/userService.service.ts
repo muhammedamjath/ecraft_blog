@@ -34,4 +34,9 @@ export class UserService {
     getBlogs(data:blogReq):Observable<any>{
         return this.http.post(`${this.api}/user/getBlogs`,data)
     }
+
+    // get drafted blogs
+    getDraftedBlogs(data:blogReq):Observable<any>{
+        return this.http.post(`${this.api}/user/getDrafts`,data)
+    }
 }
