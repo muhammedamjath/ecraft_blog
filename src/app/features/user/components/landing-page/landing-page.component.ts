@@ -1,10 +1,10 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { UserService } from '../../userService.service';
 
 interface BlogPost {
-  id: number;
+  _id: number;
   title: string;
   content: string;
   category: string;
@@ -12,47 +12,77 @@ interface BlogPost {
   createdAt: Date;
 }
 
-
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    DatePipe
-  ],
+  imports: [CommonModule, FormsModule, DatePipe],
   templateUrl: './landing-page.component.html',
-  styleUrl: './landing-page.component.css'
+  styleUrl: './landing-page.component.css',
 })
-
 export class LandingPageComponent implements OnInit {
-  posts :BlogPost[] = [
-    {
-      id: 1,
-      title: 'First Blog Post',
-      content: 'This is the content of the first blog post...',
-      category: 'Technology',
-      tags: ['Angular', 'Web Development'],
-      createdAt: new Date()
-    },
-  ];
+  constructor(private userService: UserService) {}
 
-  searchTerm = '';
-  showCreateModal = false;
-  
-  newPost: Partial<BlogPost> = {};
-  tagsInput = '';
+  blogs: BlogPost[] = []
+
+  searchIndex: string = '';
+  pageNumber: number = 1;
+  pageSize: number = 9;
+  totalPages: number = 0;
+  currentPage: number = 1;
+  totalBlogs: number = 0;
+  pages: number[] = [];
 
   ngOnInit() {
-    
+    this.loadBlogs();
   }
 
-  filterPosts() {
-    
+  loadBlogs() {
+    const data = {
+      searchIndex: this.searchIndex,
+      pageNumber: this.pageNumber,
+      pageSize: this.pageSize,
+    };
+    this.userService.getAllBlogs(data).subscribe((res) => {            
+      this.blogs = res.blogs
+      this.currentPage = res.currentPage
+      this.totalPages = res.totalPages
+      this.totalBlogs = res.totalBlogs
+      this.updatePages()
+    });
   }
 
-  filteredPosts(){
+  changePage(page: number) {
+    if (page < 1 || page > this.totalPages) return;
+    this.pageNumber = page;
+    this.loadBlogs();
+  }
 
+  updatePages() {
+    const maxVisiblePages = 5;
+    let startPage: number, endPage: number;
+
+    if (this.totalPages <= maxVisiblePages) {
+      startPage = 1;
+      endPage = this.totalPages;
+    } else {
+      const halfRange = Math.floor(maxVisiblePages / 2);
+
+      if (this.currentPage <= halfRange) {
+        startPage = 1;
+        endPage = maxVisiblePages;
+      } else if (this.currentPage + halfRange >= this.totalPages) {
+        startPage = this.totalPages - maxVisiblePages + 1;
+        endPage = this.totalPages;
+      } else {
+        startPage = this.currentPage - halfRange;
+        endPage = this.currentPage + halfRange;
+      }
+    }
+
+    this.pages = Array.from(
+      { length: endPage - startPage + 1 },
+      (_, i) => startPage + i
+    );
   }
 
 }

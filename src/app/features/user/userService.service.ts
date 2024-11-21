@@ -5,6 +5,12 @@ import { blog } from "./model/blogPost";
 import { Observable } from "rxjs";
 
 
+interface blogReq{
+    searchIndex:string,
+    pageNumber:number,
+    pageSize:number
+}
+
 @Injectable({
     providedIn:'root'
 })
@@ -17,5 +23,15 @@ export class UserService {
     // blog post
     blogPost(data:blog):Observable<any>{
         return this.http.post(`${this.api}/user/blogPost`,data)
+    }
+
+    // get posted  blogs in landing page
+    getAllBlogs(data:blogReq):Observable<any>{
+        return this.http.post(`${this.api}/user/getAllblogs`,data)
+    }
+
+    // get all blogs in user blogs component
+    getBlogs(data:blogReq):Observable<any>{
+        return this.http.post(`${this.api}/user/getBlogs`,data)
     }
 }
