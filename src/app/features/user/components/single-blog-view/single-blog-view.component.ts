@@ -1,45 +1,56 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-
-interface Blog {
-  _id: string;
-  title: string;
-  content: string;
-  category: string;
-  tags: string[];
-  createdAt: Date;
-  type: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../userService.service';
 
 @Component({
   selector: 'app-single-blog-view',
   standalone: true,
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   templateUrl: './single-blog-view.component.html',
-  styleUrl: './single-blog-view.component.css'
+  styleUrl: './single-blog-view.component.css',
 })
-export class SingleBlogViewComponent {
-  blog: Blog = {
-    _id:'123',
-    title: 'My First Blog Post',
-    content: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using  making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
-    category: 'Technology',
-    tags: ['Angular', 'Web Development'],
-    createdAt: new Date(),
-    type: 'post'
-  };
+export class SingleBlogViewComponent implements OnInit {
+  constructor(
+    private activatedRoutes: ActivatedRoute,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
-  completeBlog(id:string) {
-    
+  blog: any;
+  blogId: string = '';
+  userId: any;
+
+  ngOnInit(): void {
+    this.activatedRoutes.params.subscribe((params) => {
+      this.blogId = params['id'];
+    });
+
+    if (typeof window !== 'undefined') {
+      this.userId = localStorage.getItem('userId');
+    }
+
+    if (this.blogId) {
+      this.userService.getSingleBlog(this.blogId).subscribe((res) => {
+        this.blog = res;
+      });
+    }
+  }
+  completeBlog(id: string) {}
+
+  postBlog(id: string) {
+    this.userService.updateTypeToPost(id).subscribe((res) => {
+      this.blog.type = 'posted';
+    });
   }
 
-  postBlog(id:string) {
-    
+  updateBlog(id: string) {
+    this.router.navigate(['/user/home/updateBlog/' + id])
   }
 
-  updateBlog(id:string) {
-    
+  deleteBlog(id: string) {
+    this.userService.deleteBlog(id).subscribe((res) => {
+      this.router.navigate(['/user/home/landingpage']);
+    });
   }
 }

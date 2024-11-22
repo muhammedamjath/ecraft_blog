@@ -44,7 +44,7 @@ export class LoginComponent {
       return;
     }else{
       this.authService.loginpost(this.loginForm.value).subscribe((res)=>{
-        console.log(res);
+        
         localStorage.setItem('token',res.token)
         localStorage.setItem('userId',res.data.id)
         this.router.navigate(['/user/home/landingpage'])

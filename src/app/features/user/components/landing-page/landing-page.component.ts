@@ -2,9 +2,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../userService.service';
+import { Router } from '@angular/router';
 
 interface BlogPost {
-  _id: number;
+  _id: string;
   title: string;
   content: string;
   category: string;
@@ -20,7 +21,7 @@ interface BlogPost {
   styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService , private router:Router) {}
 
   blogs: BlogPost[] = []
 
@@ -85,4 +86,7 @@ export class LandingPageComponent implements OnInit {
     );
   }
 
+  open(id:string){
+    this.router.navigate(['/user/home/singleBlog/'+id])
+  }
 }

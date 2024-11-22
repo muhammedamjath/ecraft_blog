@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { Authservice } from '../../../core/auth/authService.service';
+import { UserService } from '../../../features/user/userService.service';
 
 @Component({
   selector: 'app-user-nav',
@@ -12,27 +14,23 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './user-nav.component.html',
   styleUrl: './user-nav.component.css'
 })
-export class UserNavComponent {
-  constructor(private router:Router , ){}
+export class UserNavComponent implements OnInit {
+  constructor(private router:Router ,private authService:Authservice , private userService:UserService ){}
   name:any ='Amjath'
   email:any ='muhammedamjath0@gmail.com'
-  isSuperAdmin:any = false
   openSideBar:boolean = false
   openMenubar:boolean=false
 
 
   ngOnInit(): void {
-    // if(typeof window !== 'undefined'){
-    //   this.name =localStorage.getItem('adminName')
-    //   this.email = localStorage.getItem('adminEmail')
-    //   this.isSuperAdmin = localStorage.getItem('isSuperAdmin')
-    // }
+    this.userService.getUserData().subscribe((res)=>{
+      this.name = res.name
+      this.email = res.email
+      
+    })
     this.checkScreenSize()
   }
-  
-  // logout(){
-  //   this.featureService.logOut()
-  // }
+
 
   screenSize: string = '';
   @HostListener('window:resize', ['$event'])
@@ -82,5 +80,9 @@ export class UserNavComponent {
     this.openSideBar = !this.openSideBar
     this.openMenubar = this.openMenubar 
     console.log('Sidebar:', this.openSideBar, 'Menu Icon:', this.openMenubar);   
+  }
+
+  logout(){
+    this.authService.logOut()
   }
 }

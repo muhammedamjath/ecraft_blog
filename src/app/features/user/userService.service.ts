@@ -39,4 +39,29 @@ export class UserService {
     getDraftedBlogs(data:blogReq):Observable<any>{
         return this.http.post(`${this.api}/user/getDrafts`,data)
     }
+
+    // get single blog
+    getSingleBlog(id:string):Observable<any>{
+        return this.http.get(`${this.api}/user/getSingleBlog/${id}`)
+    }
+
+    // delete blog
+    deleteBlog(id:string):Observable<any>{
+        return this.http.delete(`${this.api}/user/delete/${id}`)
+    }
+
+    // get userData
+    getUserData():Observable<any>{
+        return this.http.get(`${this.api}/user/userData`)
+    }
+
+    // update the type of blog to posted
+    updateTypeToPost(id:string):Observable<any>{
+        return this.http.patch(`${this.api}/user/blogPost`,{id})
+    }
+
+    // update blog
+    updateBlog(data:blog):Observable<any>{
+        return this.http.put(`${this.api}/user/updateBlog`,data)
+    }
 }

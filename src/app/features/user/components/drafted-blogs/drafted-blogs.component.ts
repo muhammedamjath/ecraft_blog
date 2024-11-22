@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../../userService.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface Blog {
   _id: string;
@@ -22,7 +23,7 @@ interface Blog {
   styleUrl: './drafted-blogs.component.css'
 })
 export class DraftedBlogsComponent {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService , private router:Router) {}
 
   blogs: Blog[] = [];
   searchIndex: string = '';
@@ -91,4 +92,7 @@ export class DraftedBlogsComponent {
 
   postBlog(_id: string) {}
 
+  open(id:string ){
+    this.router.navigate(['/user/home/singleBlog/'+id])
+  }
 }

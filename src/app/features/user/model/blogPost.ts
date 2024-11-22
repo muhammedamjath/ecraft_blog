@@ -3,5 +3,6 @@ export interface blog{
     category:string,
     tags:string,
     content:string
-    submitType:string
+    submitType:string,
+    id:string
 }

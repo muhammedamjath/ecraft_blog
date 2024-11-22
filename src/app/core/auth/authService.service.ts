@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environment/environment";
 import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 interface registerModel{
     name:string,
@@ -19,7 +20,7 @@ interface registerModel{
 })
 
 export class Authservice {
-    constructor (private http:HttpClient){}
+    constructor (private http:HttpClient , private router:Router){}
 
     api = environment.baseUrl
 
@@ -31,5 +32,11 @@ export class Authservice {
     // login 
     loginpost(data:login):Observable<any>{
       return this.http.post(`${this.api}/auth/login`,data)
+    }
+
+    // logout
+    logOut(){
+      localStorage.clear()
+      this.router.navigate(['/'])
     }
 }

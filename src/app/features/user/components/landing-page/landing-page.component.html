@@ -34,7 +34,7 @@
               <small class="text-muted">
                 {{ blog.createdAt | date  }}
               </small>
-              <button class="btn btn-primary btn-sm">Read More</button>
+              <button class="btn btn-primary btn-sm" (click)="open(blog._id)">Read More</button>
             </div>
           </div>
         </div>

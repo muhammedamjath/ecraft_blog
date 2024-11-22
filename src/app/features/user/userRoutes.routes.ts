@@ -5,6 +5,7 @@ import { BlogPostComponent } from "./components/blog-post/blog-post.component";
 import { SingleBlogViewComponent } from "./components/single-blog-view/single-blog-view.component";
 import { CreatedBlogsComponent } from "./components/created-blogs/created-blogs.component";
 import { DraftedBlogsComponent } from "./components/drafted-blogs/drafted-blogs.component";
+import { UpdateBlogComponent } from "./components/update-blog/update-blog.component";
 
 export const userRoutes:Routes = [
     {
@@ -12,9 +13,10 @@ export const userRoutes:Routes = [
         children:[
             {path:'landingpage',component:LandingPageComponent},
             {path:'createBlog',component:BlogPostComponent},
-            {path:'singleBlog',component:SingleBlogViewComponent},
+            {path:'singleBlog/:id',component:SingleBlogViewComponent},
             {path:'blogs',component:CreatedBlogsComponent},
-            {path:'draftedBlogs',component:DraftedBlogsComponent}
+            {path:'draftedBlogs',component:DraftedBlogsComponent},
+            {path:'updateBlog/:id',component:UpdateBlogComponent}
         ]
     }
 ]

@@ -27,7 +27,7 @@
           >
             <div class="card w-100">
               <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title m-0">{{ blog.title }}</h5>
+                <h5 class="card-title m-0 cursor-pointer" (click)="open(blog._id)">{{ blog.title }}</h5>
                 
                 <!-- Draft -->
                 <span 
@@ -68,12 +68,6 @@
                       (click)="completeBlog(blog._id)"
                     >
                       Complete
-                    </button>
-                    <button 
-                      class="btn btn-sm btn-primary" 
-                      (click)="postBlog(blog._id)"
-                    >
-                      Post
                     </button>
                   </div>
                   
