@@ -39,4 +39,9 @@ export class Authservice {
       localStorage.clear()
       this.router.navigate(['/'])
     }
+
+    // update user data
+    updateUserData(data:any):Observable<any>{
+      return this.http.put(`${this.api}/auth/register`,data)
+    }
 }

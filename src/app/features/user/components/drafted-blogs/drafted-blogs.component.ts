@@ -88,9 +88,15 @@ export class DraftedBlogsComponent {
     );
   }
 
-  completeBlog(_id: string) {}
+  completeBlog(id: string) {
+    this.router.navigate(['/user/home/updateBlog/' + id])
+  }
 
-  postBlog(_id: string) {}
+  postBlog(id: string) {
+    this.userService.updateTypeToPost(id).subscribe((res) => {
+      this.router.navigate(['/user/home/landingpage'])
+    });
+  }
 
   open(id:string ){
     this.router.navigate(['/user/home/singleBlog/'+id])

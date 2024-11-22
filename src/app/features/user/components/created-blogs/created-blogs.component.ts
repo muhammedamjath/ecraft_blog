@@ -87,11 +87,14 @@ export class CreatedBlogsComponent {
     );
   }
 
-  completeBlog(_id: string) {}
+  completeBlog(id: string) {
+    this.router.navigate(['/user/home/updateBlog/' + id])
+  }
 
-  postBlog(_id: string) {}
 
-  updateBlog(_id: string) {}
+  updateBlog(id: string) {
+    this.router.navigate(['/user/home/updateBlog/' + id])
+  }
 
   open(id:string){
     this.router.navigate(['/user/home/singleBlog/'+id])

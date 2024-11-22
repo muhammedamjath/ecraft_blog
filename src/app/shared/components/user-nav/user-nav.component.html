@@ -1,4 +1,3 @@
-<!-- Toggle Button -->
 <button class="position-absolute top-4 start-4 d-lg-none text-white z-50 fs-4" (click)="open()">
     <i *ngIf="openMenubar" class="fa-solid fa-bars"></i>
     <i *ngIf="!openMenubar" class="fa-solid fa-xmark "></i>
@@ -13,16 +12,24 @@
                'col-6': screenSize === 'md',
                'col-3': screenSize === 'lg'
            }">
-        <!-- Profile Section -->
-        <div class="p-3 border-bottom  border-light d-flex flex-column align-items-center">
-            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fs-4 fw-bold mb-2" style="width: 4rem; height: 4rem;">
-                {{ name.charAt(0) }}
+        <!-- Profile  -->
+        <div class="p-3 border-bottom border-light d-flex flex-column align-items-center" (click)="openProfileModal()" style="cursor: pointer;">
+            <div *ngIf="imageUrl; else defaultImage" class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fs-4 fw-bold mb-2" style="width: 4rem; height: 4rem;">
+              <img [src]="'http://localhost:3000/'+imageUrl" alt="" class="rounded-circle w-100 h-100 object-fit-cover">
             </div>
+          
+            <ng-template #defaultImage>
+              <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fs-4 fw-bold mb-2" style="width: 4rem; height: 4rem;">
+                {{ name.charAt(0) }}
+              </div>
+            </ng-template>
+          
             <h2 class="h6 fw-semibold">{{ name }}</h2>
             <p class="small text-light">{{ email }}</p>
-        </div>
+          </div>
+          
 
-        <!-- Navigation Buttons -->
+        <!-- Navigation  -->
         <nav class="flex-grow-1 p-3">
             <button class="btn btn-link w-100 text-start text-primary text-decoration-none btn-bg btn-bg py-2 px-3 mb-2" 
                 routerLink="/user/home/landingpage" 
@@ -47,10 +54,9 @@
                 routerLinkActive="rounded-end bg-white text-primary">
                 Create a blog
             </button>
-            
         </nav>
 
-        <!-- Logout Button -->
+        <!-- Logout  -->
         <div class="p-3 border-top border-light">
             <button class="btn w-100 py-2 text-primary fw-bold bg-warning hover-bg-primary" (click)="logout()" type="button">
                 Logout
@@ -58,3 +64,83 @@
         </div>
     </aside>
 </div>
+
+
+
+<!-- Profile Update Modal -->
+<div *ngIf="isProfileModalOpen" class="modal fade show" tabindex="-1" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Profile</h5>
+          <button type="button" class="btn-close" (click)="closeProfileModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="name" 
+                formControlName="name"
+                [ngClass]="{'is-invalid': submitted && profileForm.get('name')?.errors}"
+              >
+              <div *ngIf="submitted && profileForm.get('name')?.errors" class="invalid-feedback">
+                <div *ngIf="profileForm.get('name')?.errors?.['required']">Name is required</div>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                formControlName="email"
+                [ngClass]="{'is-invalid': submitted && profileForm.get('email')?.errors}"
+              >
+              <div *ngIf="submitted && profileForm.get('email')?.errors" class="invalid-feedback">
+                <div *ngIf="profileForm.get('email')?.errors?.['required']">Email is required</div>
+                <div *ngIf="profileForm.get('email')?.errors?.['email']">Invalid email format</div>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="password" 
+                formControlName="password"
+                [ngClass]="{'is-invalid': submitted && profileForm.get('password')?.errors}"
+              >
+              <div *ngIf="submitted && profileForm.get('password')?.errors" class="invalid-feedback">
+                <div *ngIf="profileForm.get('password')?.errors?.['required']">Password is required</div>
+                <div *ngIf="profileForm.get('password')?.errors?.['minlength']">
+                  Password must be at least 8 characters
+                </div>
+              </div>
+            </div>
+  
+            <div class="mb-3">
+              <label for="image" class="form-label">Profile Image</label>
+              <input 
+                type="file" 
+                class="form-control" 
+                id="image" 
+                (change)="onFileSelected($event)"
+                accept="image/*"
+              >
+            </div>
+  
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- Modal backdrop -->
+<div *ngIf="isProfileModalOpen" class="modal-backdrop fade show"></div>

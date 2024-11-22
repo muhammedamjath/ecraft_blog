@@ -36,7 +36,9 @@ export class SingleBlogViewComponent implements OnInit {
       });
     }
   }
-  completeBlog(id: string) {}
+  completeBlog(id: string) {
+    this.router.navigate(['/user/home/updateBlog/' + id])
+  }
 
   postBlog(id: string) {
     this.userService.updateTypeToPost(id).subscribe((res) => {
