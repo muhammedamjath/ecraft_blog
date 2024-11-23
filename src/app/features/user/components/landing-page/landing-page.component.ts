@@ -36,7 +36,9 @@ export class LandingPageComponent implements OnInit {
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
     };
-    this.userService.getAllBlogs(data).subscribe((res) => {            
+    this.userService.getAllBlogs(data).subscribe((res) => {        
+      console.log(res);
+                
       this.blogs = res.blogs
       this.currentPage = res.currentPage
       this.totalPages = res.totalPages

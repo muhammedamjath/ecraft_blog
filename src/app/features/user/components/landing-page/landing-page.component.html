@@ -1,74 +1,86 @@
 <div class="container mt-4">
   <!-- Search -->
-  <div class="row mb-4">
-    <div class="col-12">
-      <div class="input-group">
-        <span class="input-group-text bg-white">
-          <i class="fas fa-search text-muted"></i>
-        </span>
-        <input 
-          [(ngModel)]="searchIndex" 
-          (ngModelChange)="loadBlogs()"
-          class="form-control border-start-0" 
-          placeholder="Search posts by title, category, or tags"
-        >
-      </div>
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="input-group">
+      <span class="input-group-text bg-white">
+        <i class="fas fa-search text-muted"></i>
+      </span>
+      <input 
+        [(ngModel)]="searchIndex" 
+        (ngModelChange)="loadBlogs()"
+        class="form-control border-start-0" 
+        placeholder="Search posts by title, category, or tags"
+      >
     </div>
   </div>
+</div>
 
-  <!-- Blogs -->
-  <div class="row">
-    <div class="col-12 mb-4" *ngFor="let blog of blogs">
-      <div class="card shadow-sm border-0">
-        <div class="card-body p-4">
-          <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
-            <div>
-              <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">
-                {{ blog.category }}
-              </span>
-            </div>
-            <small class="text-muted">
-              <i class="far fa-calendar-alt me-1"></i>
-              {{ blog.createdAt | date }}
-            </small>
-          </div>
-
-          <h3 class="card-title h4 fw-bold mb-3">{{ blog.title }}</h3>
-          
-          <div class="card-text text-muted mb-4" [innerHTML]="blog.content | slice:0:200"></div>
-          
-          <div class="mb-4">
-            <span 
-              *ngFor="let tag of blog.tags" 
-              class="badge bg-light text-secondary me-2 mb-2 px-3 py-2"
-            >
-              #{{ tag }}
+<!-- Blogs -->
+<div class="row">
+  <div class="col-12 mb-4" *ngFor="let blog of blogs">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+          <div>
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">
+              {{ blog.category }}
             </span>
           </div>
-          
-          <!-- like -->
-          <div class="d-flex justify-content-between align-items-center pt-3 border-top">
-            <div class="d-flex gap-3">
-              <button 
-                class="btn btn-outline-secondary border-0" 
-                [class.text-danger]="blog?.isLiked"
-                (click)="toggleLike(blog._id)"
-              >
-                <i class="far" [class.fa-heart]="!blog.isLiked" [class.fas]="blog.isLiked"></i>
-                <span class="ms-2">{{ blog.likeCount || 0 }}</span>
-              </button>
-              
-            </div>
-            
-            <button class="btn btn-primary px-4 rounded-pill" (click)="open(blog._id)">
-              Read More
-              <i class="fas fa-arrow-right ms-2"></i>
+          <small class="text-muted">
+            <i class="far fa-calendar-alt me-1"></i>
+            {{ blog.createdAt | date }}
+          </small>
+        </div>
+
+        <!-- Author -->
+        <div class="d-flex align-items-center mb-3">
+          <img 
+            *ngIf="blog.authorDetails?.image" 
+            [src]="blog.authorDetails.image" 
+            alt="{{ blog.authorDetails.name }}" 
+            class="rounded-circle me-2" 
+            style="width: 40px; height: 40px; object-fit: cover;"
+          >
+          <span class="text-muted">
+            By <strong>{{ blog.authorDetails[0].name  }}</strong>
+          </span>
+        </div>
+
+        <h3 class="card-title h4 fw-bold mb-3">{{ blog.title }}</h3>
+        
+        <div class="card-text text-muted mb-4" [innerHTML]="blog.content | slice:0:200"></div>
+        
+        <div class="mb-4">
+          <span 
+            *ngFor="let tag of blog.tags" 
+            class=" text-primary me-2 mb-2 px-3 py-2"
+          >
+            #{{ tag }}
+          </span>
+        </div>
+        
+        <!-- Like -->
+        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+          <div class="d-flex gap-3">
+            <button 
+              class="btn btn-outline-secondary border-0" 
+              [class.text-danger]="blog?.isLiked"
+              (click)="toggleLike(blog._id)"
+            >
+              <i class="far" [class.fa-heart]="!blog.isLiked" [class.fas]="blog.isLiked"></i>
+              <span class="ms-2">{{ blog.likeCount || 0 }}</span>
             </button>
           </div>
+          <button class="btn btn-primary px-4 rounded-pill" (click)="open(blog._id)">
+            Read More
+            <i class="fas fa-arrow-right ms-2"></i>
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>
 
   <!-- Pagination -->
   <nav aria-label="Page navigation example">

@@ -30,12 +30,11 @@
               </div>
               
               <div class="mb-2">
-                <strong>Tags:</strong> 
                 <span 
                   *ngFor="let tag of blog.tags" 
-                  class="badge bg-secondary me-1"
+                  class=" text-primary me-1"
                 >
-                  {{ tag }}
+                  #{{ tag }}
                 </span>
               </div>
               

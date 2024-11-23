@@ -1,6 +1,6 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="m-0">User List</h3>
+      <h3 class="m-0">Users List</h3>
       <span class="badge bg-primary p-2">Total Users: {{totalUsers}}</span>
     </div>
   
@@ -11,6 +11,7 @@
             <th scope="col">Sl No</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
+            <th scope="col">Registered on</th>
           </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
             <td>{{i + 1}}</td>
             <td>{{user.name}}</td>
             <td>{{user.email}}</td>
+            <td>{{user.createdAt | date}}</td>
           </tr>
         </tbody>
       </table>

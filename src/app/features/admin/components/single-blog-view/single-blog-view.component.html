@@ -16,15 +16,19 @@
 
       <div class="card-body">
         <div class="mb-3">
+          <strong>Author:</strong> {{ blog.authorDetails[0].name }}
+        </div>
+
+        <div class="mb-3">
           <strong>Category:</strong> {{ blog.category }}
         </div>
 
         <div class="mb-3">
           <span 
             *ngFor="let tag of blog.tags" 
-            class="badge bg-secondary me-1"
+            class=" text-primary me-1"
           >
-            {{ tag }}
+            #{{ tag }}
           </span>
         </div>
 

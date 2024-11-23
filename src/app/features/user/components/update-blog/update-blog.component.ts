@@ -15,6 +15,7 @@ export class UpdateBlogComponent {
   constructor(private userService:UserService , private router:Router){}
 
   title:string = 'Update the blog'
+  btnTitle:string = 'Update '
 
   updatedData(data:any){
     this.userService.updateBlog(data).subscribe((res)=>{

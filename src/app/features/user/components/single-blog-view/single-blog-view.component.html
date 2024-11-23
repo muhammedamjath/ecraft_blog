@@ -4,7 +4,6 @@
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title m-0">{{ blog.title }}</h5>
 
-        
         <span 
           *ngIf="blog.type == 'draft'" 
           class="badge bg-warning text-dark"
@@ -16,27 +15,30 @@
 
       <div class="card-body">
         <div class="mb-3">
+          <strong>Author:</strong> {{ blog.authorDetails[0].name }}
+        </div>
+
+        <div class="mb-3">
           <strong>Category:</strong> {{ blog.category }}
         </div>
 
         <div class="mb-3">
           <span 
             *ngFor="let tag of blog.tags" 
-            class="badge bg-secondary me-1"
+            class=" text-primary me-1"
           >
-            {{ tag }}
+            #{{ tag }}
           </span>
         </div>
 
         <div class="mb-3">
-          <strong>posted in:</strong> 
+          <strong>Posted on:</strong> 
           {{ blog.createdAt | date }}
         </div>
 
         <p class="card-text" [innerHTML]="blog.content"></p>
 
         <div class="d-flex justify-content-between mt-3">
-          <!--  Buttons -->
           <div *ngIf="blog.type == 'draft'" class="btn-group">
             <button 
               class="btn btn-success" 
@@ -60,8 +62,8 @@
             Update 
           </button>
 
-          
-          <button *ngIf="blog.userId == userId"
+          <button 
+            *ngIf="blog.userId == userId"
             class="btn btn-danger" 
             (click)="deleteBlog(blog._id)"
           >

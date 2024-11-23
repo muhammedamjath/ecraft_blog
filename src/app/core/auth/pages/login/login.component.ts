@@ -45,7 +45,7 @@ export class LoginComponent {
     }else{
       this.authService.loginpost(this.loginForm.value).subscribe((res)=>{
         localStorage.setItem('token',res.token)
-
+        localStorage.setItem('roll',res.data.roll)
         if(res.data.roll == 'admin'){
           localStorage.setItem('adminId',res.data.id)
           this.router.navigate(['/admin/home/dashboard'])

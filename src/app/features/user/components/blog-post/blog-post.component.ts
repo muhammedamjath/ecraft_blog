@@ -16,6 +16,7 @@ export class BlogPostComponent {
   constructor(private userService:UserService){}
 
   title:string = 'Create a blog'
+  btnTitle:string = 'Publish '
 
   blogPost(data:any){
     

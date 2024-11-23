@@ -24,6 +24,7 @@ export class BlogFormComponent implements OnInit {
   blog: any;
   @Output() formContent = new EventEmitter<any>();
   @Input() title: string = '';
+  @Input() btnTitle:string =''
 
   constructor(
     private fb: FormBuilder,

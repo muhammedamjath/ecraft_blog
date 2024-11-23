@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../userService.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-single-blog-view',
@@ -41,9 +42,30 @@ export class SingleBlogViewComponent implements OnInit {
   }
 
   postBlog(id: string) {
-    this.userService.updateTypeToPost(id).subscribe((res) => {
-      this.blog.type = 'posted';
-    });
+
+    Swal.fire({
+      title: 'Are you sure you want to post this blog?',
+      text: 'You won’t be able to undo this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, post it!',
+      cancelButtonText: 'Cancel',
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.userService.updateTypeToPost(id).subscribe((res) => {
+          Swal.fire({
+            text: 'blog has been posted.',
+            icon: 'success',
+            timer: 3000,
+          });
+          this.blog.type = 'posted';
+        });
+      }
+    })
+
+    
   }
 
   updateBlog(id: string) {
@@ -51,8 +73,26 @@ export class SingleBlogViewComponent implements OnInit {
   }
 
   deleteBlog(id: string) {
-    this.userService.deleteBlog(id).subscribe((res) => {
-      this.router.navigate(['/user/home/landingpage']);
-    });
+    Swal.fire({
+      title: 'Are you sure you want to delete this blog?',
+      text: 'You won’t be able to undo this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.userService.deleteBlog(id).subscribe((res) => {
+          Swal.fire({
+            text: 'blog has been deleted.',
+            icon: 'success',
+            timer: 3000,
+          });
+          this.router.navigate(['/user/home/landingpage']);
+        });
+      }
+    })
   }
 }

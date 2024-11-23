@@ -5,6 +5,7 @@ import { UserListComponent } from "./components/user-list/user-list.component";
 import { DraftedBlogsComponent } from "./components/drafted-blogs/drafted-blogs.component";
 import { SingleBlogViewComponentInAdmin } from "./components/single-blog-view/single-blog-view.component";
 import { PublishedBlogComponent } from "./components/published-blog/published-blog.component";
+import { AllBlogsComponent } from "./components/all-blogs/all-blogs.component";
 
 export const AdminRoutes:Routes = [
     {
@@ -14,7 +15,8 @@ export const AdminRoutes:Routes = [
             {path:'userslist',component:UserListComponent},
             {path:'drafts',component:DraftedBlogsComponent},
             {path:'singleView/:id',component:SingleBlogViewComponentInAdmin},
-            {path:'publishedBlog',component:PublishedBlogComponent}
+            {path:'publishedBlog',component:PublishedBlogComponent},
+            {path:'allblogs',component:AllBlogsComponent}
         ]
     }
 ]
