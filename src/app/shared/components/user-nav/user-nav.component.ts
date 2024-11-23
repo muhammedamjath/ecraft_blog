@@ -53,7 +53,7 @@ export class UserNavComponent implements OnInit {
       const width = window.innerWidth;
       if (width < 576) {
         this.checkScreenSize();
-        this.screenSize = 'xs';
+        this.screenSize = 'xs'; 
       } else if (width < 768) {
         this.checkScreenSize();
         this.screenSize = 'sm';
@@ -90,8 +90,7 @@ export class UserNavComponent implements OnInit {
 
   open() {
     this.openSideBar = !this.openSideBar;
-    this.openMenubar = this.openMenubar;
-    console.log('Sidebar:', this.openSideBar, 'Menu Icon:', this.openMenubar);
+    this.openMenubar = !this.openMenubar;
   }
 
   logout() {
@@ -135,9 +134,7 @@ export class UserNavComponent implements OnInit {
       return;
     }else{
 
-    
-    // console.log('Profile Update:', formData);
-    const userData = new FormData()
+        const userData = new FormData()
 
     if(this.selectedFile){
       userData.append('image',this.selectedFile)
@@ -147,15 +144,11 @@ export class UserNavComponent implements OnInit {
     userData.append('password',this.profileForm.value.password)
 
     this.authService.updateUserData(userData).subscribe((res)=>{
-      console.log(res);
 
+      this.closeProfileModal();
     })
 
-    if (this.selectedFile) {
-      console.log('Profile Image:', this.selectedFile);
-    }
 
-    this.closeProfileModal();
   }
     }
 

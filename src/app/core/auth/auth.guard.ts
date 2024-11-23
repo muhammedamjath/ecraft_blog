@@ -12,7 +12,9 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   if(!token){
     return true
   }else{
-    location.back()
-    return false;
+    if(typeof window !== 'undefined'){
+        location.back()
+    }    return false;
   }
 };
+ 

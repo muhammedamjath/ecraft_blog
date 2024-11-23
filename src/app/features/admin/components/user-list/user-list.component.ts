@@ -20,9 +20,7 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.adminService.getUsersList().subscribe((res)=>{
       this.userList = res.userData
-      this.totalUsers = res.totalUsers
-      console.log(res);
-      
+      this.totalUsers = res.totalUsers      
     })
   }
 }

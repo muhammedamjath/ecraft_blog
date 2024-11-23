@@ -14,7 +14,10 @@ export const UserGuard: CanActivateFn = (route, state) => {
   if(token && roll == 'user'){
     return true
   }else{
-    location.back()
+    if(typeof window !== 'undefined'){
+        location.back()
+    }
     return false;
   }
 };
+ 

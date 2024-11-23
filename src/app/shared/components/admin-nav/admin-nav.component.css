@@ -5,3 +5,7 @@
 .bg-main{
     background-color: #25262b;
 }
+
+aside {
+    z-index: 1050; 
+  }

@@ -14,7 +14,10 @@ export const AdminGuard: CanActivateFn = (route, state) => {
   if(token && roll == 'admin'){
     return true
   }else{
-    location.back()
+    if(typeof window !== 'undefined'){
+        location.back()
+    }
+
     return false;
   }
 };
