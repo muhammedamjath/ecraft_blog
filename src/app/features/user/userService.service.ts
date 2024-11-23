@@ -64,4 +64,9 @@ export class UserService {
     updateBlog(data:blog):Observable<any>{
         return this.http.put(`${this.api}/user/updateBlog`,data)
     }
+
+    // update like
+    updateLike(data:{userId:string , blogId:string}):Observable<any>{
+        return this.http.patch(`${this.api}/user/like`,data)
+    }
 }

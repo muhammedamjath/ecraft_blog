@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../userService.service';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-landing-page',
   standalone: true,
@@ -14,9 +12,9 @@ import { Router } from '@angular/router';
   styleUrl: './landing-page.component.css',
 })
 export class LandingPageComponent implements OnInit {
-  constructor(private userService: UserService , private router:Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
-  blogs: any
+  blogs: any;
 
   searchIndex: string = '';
   pageNumber: number = 1;
@@ -25,25 +23,37 @@ export class LandingPageComponent implements OnInit {
   currentPage: number = 1;
   totalBlogs: number = 0;
   pages: number[] = [];
+  userId: any;
 
   ngOnInit() {
     this.loadBlogs();
+    if (typeof window != 'undefined') {
+      this.userId = localStorage.getItem('userId');
+    }
   }
 
   loadBlogs() {
+    const userId = localStorage.getItem('userId');
     const data = {
       searchIndex: this.searchIndex,
       pageNumber: this.pageNumber,
       pageSize: this.pageSize,
     };
-    this.userService.getAllBlogs(data).subscribe((res) => {        
+
+    this.userService.getAllBlogs(data).subscribe((res) => {
       console.log(res);
-                
-      this.blogs = res.blogs
-      this.currentPage = res.currentPage
-      this.totalPages = res.totalPages
-      this.totalBlogs = res.totalBlogs
-      this.updatePages()
+
+      this.blogs = res.blogs.map((blog: any) => {
+        return {
+          ...blog,
+          isLiked: blog.likedBy?.includes(userId),
+        };
+      });
+
+      this.currentPage = res.currentPage;
+      this.totalPages = res.totalPages;
+      this.totalBlogs = res.totalBlogs;
+      this.updatePages();
     });
   }
 
@@ -81,9 +91,25 @@ export class LandingPageComponent implements OnInit {
     );
   }
 
-  open(id:string){
-    this.router.navigate(['/user/home/singleBlog/'+id])
+  open(id: string) {
+    this.router.navigate(['/user/home/singleBlog/' + id]);
   }
 
-  toggleLike(id:string){}
+  toggleLike(id: string, userId: string) {
+    const data = { blogId: id, userId: userId };
+
+    this.userService.updateLike(data).subscribe((res: any) => {
+      const blog = this.blogs.find((b: any) => b._id === id);
+
+      if (blog) {
+        if (blog.likedBy.includes(userId)) {
+          blog.likedBy = blog.likedBy.filter((user: string) => user !== userId);
+        } else {
+          blog.likedBy.push(userId);
+        }
+
+        blog.likedCount = res.likeCount;
+      }
+    });
+  }
 }
