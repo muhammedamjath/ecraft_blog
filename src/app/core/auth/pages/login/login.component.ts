@@ -44,10 +44,17 @@ export class LoginComponent {
       return;
     }else{
       this.authService.loginpost(this.loginForm.value).subscribe((res)=>{
-        
         localStorage.setItem('token',res.token)
-        localStorage.setItem('userId',res.data.id)
-        this.router.navigate(['/user/home/landingpage'])
+
+        if(res.data.roll == 'admin'){
+          localStorage.setItem('adminId',res.data.id)
+          this.router.navigate(['/admin/home/dashboard'])
+
+        }else if(res.data.roll == 'user'){
+
+          localStorage.setItem('userId',res.data.id)
+          this.router.navigate(['/user/home/landingpage'])
+        }
       })
     }  
   }

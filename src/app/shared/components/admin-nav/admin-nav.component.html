@@ -1,0 +1,72 @@
+<button class="position-absolute top-4 start-4 d-lg-none text-white z-50 fs-4" (click)="open()">
+    <i *ngIf="openMenubar" class="fa-solid fa-bars"></i>
+    <i *ngIf="!openMenubar" class="fa-solid fa-xmark "></i>
+</button>
+
+<!-- Sidebar -->
+<div *ngIf="openSideBar">
+    <aside class="position-fixed vh-100 bg-main text-white d-flex flex-column gap-2 z-50"
+           [ngClass]="{
+               'col-12': screenSize === 'xs',
+               'col-10': screenSize === 'sm',
+               'col-6': screenSize === 'md',
+               'col-3': screenSize === 'lg'
+           }">
+        <!-- Profile  -->
+        <div class="p-3 border-bottom border-light d-flex flex-column align-items-center"  style="cursor: pointer;">
+            <div *ngIf="imageUrl; else defaultImage" class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fs-4 fw-bold mb-2" style="width: 4rem; height: 4rem;">
+              <img [src]="'http://localhost:3000/'+imageUrl" alt="" class="rounded-circle w-100 h-100 object-fit-cover">
+            </div>
+          
+            <ng-template #defaultImage>
+              <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white fs-4 fw-bold mb-2" style="width: 4rem; height: 4rem;">
+                {{ name.charAt(0) }}
+              </div>
+            </ng-template>
+          
+            <h2 class="h6 fw-semibold">{{ name }}</h2>
+            <p class="small text-light">{{ email }}</p>
+          </div>
+          
+
+        <!-- Navigation  -->
+        <nav class="flex-grow-1 p-3">
+            <button class="btn btn-link w-100 text-start text-primary text-decoration-none btn-bg btn-bg py-2 px-3 mb-2" 
+                routerLink="/admin/home/dashboard" 
+                routerLinkActive="rounded-end bg-white text-primary">
+                Dashbord
+            </button>
+            
+            <button class="btn btn-link w-100 text-start text-primary text-decoration-none btn-bg py-2 px-3 mb-2" 
+                routerLink="/user/home/blogs" 
+                routerLinkActive="rounded-end bg-white text-primary">
+                All blogs
+            </button>
+            <button class="btn btn-link w-100 text-start text-primary text-decoration-none btn-bg py-2 px-3 mb-2" 
+                routerLink="/user/home/draftedBlogs" 
+                routerLinkActive="rounded-end bg-white text-primary">
+                Drafted blogs
+            </button>
+
+            <button class="btn btn-link w-100 text-start text-primary text-decoration-none btn-bg py-2 px-3 mb-2" 
+                routerLink="/user/home/draftedBlogs" 
+                routerLinkActive="rounded-end bg-white text-primary">
+                Published blogs
+            </button>
+            
+            <button class="btn btn-link w-100 text-start text-pe
+             text-decoration-none btn-bg py-2 px-3 mb-2" 
+                routerLink="/user/home/createBlog" 
+                routerLinkActive="rounded-end bg-white text-primary">
+                Users list
+            </button>
+        </nav>
+
+        <!-- Logout  -->
+        <div class="p-3 border-top border-light">
+            <button class="btn w-100 py-2 text-primary fw-bold bg-warning hover-bg-primary" (click)="logout()" type="button">
+                Logout
+            </button>
+        </div>
+    </aside>
+</div>

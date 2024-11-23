@@ -4,14 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../userService.service';
 import { Router } from '@angular/router';
 
-interface BlogPost {
-  _id: string;
-  title: string;
-  content: string;
-  category: string;
-  tags: string[];
-  createdAt: Date;
-}
+
 
 @Component({
   selector: 'app-landing-page',
@@ -23,7 +16,7 @@ interface BlogPost {
 export class LandingPageComponent implements OnInit {
   constructor(private userService: UserService , private router:Router) {}
 
-  blogs: BlogPost[] = []
+  blogs: any
 
   searchIndex: string = '';
   pageNumber: number = 1;
@@ -89,4 +82,6 @@ export class LandingPageComponent implements OnInit {
   open(id:string){
     this.router.navigate(['/user/home/singleBlog/'+id])
   }
+
+  toggleLike(id:string){}
 }
