@@ -16,4 +16,9 @@ export class AdminService {
     getAllCount():Observable<any>{
         return this.http.get(`${this.api}/admin/getallcount`)
     }
+
+    // get users list
+    getUsersList():Observable<any>{
+        return this.http.get(`${this.api}/admin/getUsers`)
+    }
 }

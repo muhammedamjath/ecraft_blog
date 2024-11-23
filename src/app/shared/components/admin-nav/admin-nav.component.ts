@@ -32,9 +32,7 @@ export class AdminNavComponent {
   ) {}
 
   ngOnInit(): void {
-    this.userService.getUserData().subscribe((res) => {
-      console.log(res);
-      
+    this.userService.getUserData().subscribe((res) => {      
       this.name = res.name;
       this.email = res.email;
       this.imageUrl = res.image
