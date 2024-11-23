@@ -1,0 +1,73 @@
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card bg-primary text-white">
+          <div class="card-body d-flex justify-content-between align-items-center">
+              <h1 class="h3 mb-0">Drafted Blogs</h1>
+              <p class="mb-0 ">Total Drafts: {{ blogCount}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Blogs -->
+    <div class="row">
+        <div 
+          *ngFor="let blog of blogs" 
+          class="col-12 col-md-6 mb-4 d-flex"
+        >
+          <div class="card w-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="card-title m-0 cursor-pointer" >{{ blog.title }}</h5>
+              
+              <!-- Draft -->
+              <span  
+                class="badge bg-warning text-dark"
+                title="Draft"
+              >
+                {{blog.type}}
+              </span>
+            </div>
+            
+            <div class="card-body">
+              <div class="mb-2">
+                <strong>Category:</strong> {{ blog.category }}
+              </div>
+              
+              <div class="mb-2">
+                <strong>Tags:</strong> 
+                <span 
+                  *ngFor="let tag of blog.tags" 
+                  class="badge bg-secondary me-1"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+              
+              <div class="mb-2">
+                <strong>Submit Date:</strong> 
+                {{ blog.createdAt | date }}
+              </div>
+              
+              <div class="card-text mt-3" [innerHTML]="blog.content | slice:0:200"></div>
+              
+              <div class="text-end">
+                <div  class="btn-group">
+                  <button 
+                    class="btn btn-sm btn-success" 
+                    (click)="open(blog._id )"
+                  >
+                    open
+                  </button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+  </div>

@@ -21,4 +21,19 @@ export class AdminService {
     getUsersList():Observable<any>{
         return this.http.get(`${this.api}/admin/getUsers`)
     }
+
+    // get drafted blog
+    getDraftedBlogs():Observable<any>{
+        return this.http.get(`${this.api}/admin/getdraftedblogs`)
+    }
+
+    // get full blogs
+    getFullBlogs():Observable<any>{
+        return this.http.get(`${this.api}/admin/getallblogs`)
+    }
+
+    // get published blogs
+    getPublishedBlogs():Observable<any>{
+        return this.http.get(`${this.api}/admin/getpostedblogs`)
+    }
 }
